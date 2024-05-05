@@ -70,6 +70,7 @@ and the raw data of the notes (data.json)
 
 
 <!-- EX 0.5: Single page app diagram -->
+<!-- EX 0.6: New note in Single page app diagram -->
 
 ```mermaid
 sequenceDiagram
