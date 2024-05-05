@@ -32,8 +32,7 @@ When the data has been fetched, the browser executes an event handler, which ren
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: 
-    [{content: "it's 5.25 am in australia and I haven't slept 😢", date: "2024-05-04T19:26:19.208Z"},…]
+    server-->>browser: [{content: "never surrender coding bro", date: "2024-05-04T21:28:38.797Z"},…]
     deactivate server
 
 /*When the button on the form is clicked, the browser will send the user input to the server.
@@ -47,7 +46,7 @@ It is an HTTP POST request to the server address new_note.*/
 */
 
     server-->>browser: HTTP status code 302 
-    connection: keep-alive
+   
 
 /* the browser reloads the Notes page.
 The reload causes three more HTTP requests: fetching the style sheet (main.css), the JavaScript code (main.js),
@@ -66,6 +65,54 @@ and the raw data of the notes (data.json)
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: 
-    [{content: "it's 5.25 am in australia and I haven't slept 😢", date: "2024-05-04T19:26:19.208Z"},…]
+    server-->>browser: [{content: "it's 5.25 am in australia and I haven't slept 😢", date: "2024-05-04T19:26:19.208Z"},…]
     deactivate server
+
+
+<!-- EX 0.5: Single page app diagram -->
+
+```mermaid
+sequenceDiagram
+    participant browser
+    participant server
+
+<!-- The browser fetches the HTML code defining the content and the structure of the page from the server using an HTTP GET request -->
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+<!-- Links in the HTML code cause the browser to also fetch the CSS style sheet main.css -->
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+<!-- Links in the HTML code cause the browser to also fetch the JavaScript code file spa.js -->
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+<!-- The browser executes the JavaScript code.
+The code makes an HTTP GET request to the address https://studies.cs.helsinki.fi/exampleapp/data.json,
+which returns the notes as JSON data. -->
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{content: "never surrender coding bro", date: "2024-05-04T21:28:38.797Z"},…]
+    deactivate server
+
+ <!--When to create a new note,  the browser sends only one request to the server.
+ The server responds with status code 201 created. -->
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate server
+    server-->>browser: {"content":"EX 0.5Single page app diagram","date":"2024-05-05T13:49:59.931Z"}
+    deactivate server
+----------------------------------------------------------------------------------------------------------
+
+
+
+
